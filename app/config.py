@@ -34,12 +34,10 @@ class Settings(BaseSettings):
     app_env: str = "development"
     log_level: str = "INFO"
 
-    # Model routing cost map (USD per 1k tokens)
+    # Model routing cost map (USD per 1k tokens) — Groq pricing
     model_costs: dict = {
-        "gpt-4o": {"input": 0.005, "output": 0.015},
-        "gpt-3.5-turbo": {"input": 0.0005, "output": 0.0015},
-        "claude-haiku-3-5": {"input": 0.00025, "output": 0.00125},
-        "claude-sonnet-4-6": {"input": 0.003, "output": 0.015},
+        "llama-3.1-8b-instant": {"input": 0.00005, "output": 0.00008},
+        "llama-3.3-70b-versatile": {"input": 0.00059, "output": 0.00079},
     }
 
     # Complexity routing thresholds

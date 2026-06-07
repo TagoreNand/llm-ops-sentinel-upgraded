@@ -69,7 +69,7 @@ def select_model(complexity: float, force_model: str | None = None) -> tuple[str
 
     if complexity < 0.25:
         return MODEL_TIERS[0], "simple query → cheapest model"
-    elif complexity < 0.55:
+    elif complexity < 0.40:
         return MODEL_TIERS[1], "medium complexity → mid-tier model"
     elif complexity < 0.80:
         return MODEL_TIERS[2], "high complexity → capable model"
