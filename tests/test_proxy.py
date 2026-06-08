@@ -19,7 +19,7 @@ async def test_chat_routes_to_cheap_model(client):
     assert resp.status_code == 200
     data = resp.json()
     assert data["response"] == "Paris."
-    assert data["model"] in ["claude-haiku-3-5", "gpt-3.5-turbo"]
+    assert data["model"] == "llama-3.1-8b-instant"
     assert data["cost_usd"] >= 0
 
 
@@ -37,9 +37,7 @@ async def test_chat_routes_complex_to_frontier(client):
     assert resp.status_code == 200
     data = resp.json()
     assert data["complexity_score"] > 0.45
-    
-    # Change this to include mid-tier models
-    assert data["model"] in ["gpt-3.5-turbo", "claude-sonnet-4-6", "gpt-4o"]  # Added gpt-3.5-turbo
+    assert data["model"] == "llama-3.3-70b-versatile"
 
 
 @pytest.mark.asyncio

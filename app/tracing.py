@@ -17,6 +17,8 @@ logger = structlog.get_logger()
 
 def setup_tracing(app):
     """Call once at startup to wire up OTel instrumentation."""
+    if os.getenv("PYTEST_CURRENT_TEST") or os.getenv("DISABLE_TRACING"):
+        return
     try:
         from opentelemetry import trace
         from opentelemetry.sdk.trace import TracerProvider

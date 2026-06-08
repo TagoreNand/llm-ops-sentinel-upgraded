@@ -40,9 +40,12 @@ def _jensen_shannon_divergence(p: np.ndarray, q: np.ndarray) -> float:
     p = p / p.sum()
     q = q / q.sum()
     m = 0.5 * (p + q)
-    kl_pm = np.sum(np.where(p > 0, p * np.log(p / np.clip(m, 1e-10, None)), 0))
-    kl_qm = np.sum(np.where(q > 0, q * np.log(q / np.clip(m, 1e-10, None)), 0))
-    return float(0.5 * (kl_pm + kl_qm))
+
+    def _kl(a: np.ndarray) -> float:
+        mask = a > 0  # 0 * log(0/m) == 0, so skip those terms instead of evaluating log(0)
+        return float(np.sum(a[mask] * np.log(a[mask] / np.clip(m[mask], 1e-10, None))))
+
+    return 0.5 * (_kl(p) + _kl(q))
 
 
 def _cluster_distribution(embeddings_2d: np.ndarray, labels: np.ndarray, n_bins: int = 20) -> np.ndarray:
